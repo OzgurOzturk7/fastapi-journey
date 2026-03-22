@@ -1,0 +1,59 @@
+{% extends "home.html" %}
+
+{% block member_container %}
+
+<main class="container">
+    <hr>
+
+    <!-- ─── ADD FORM ───────────────────────────────── -->
+    <section class="container-fluid mb-4">
+        <form method="post" action="/add-member">
+            <div class="input-group mb-2">
+                <input class="form-control" type="text" name="name" placeholder="Name" required>
+            </div>
+
+            <div class="input-group mb-2">
+                <input class="form-control" type="number" name="age" placeholder="Age" required>
+            </div>
+
+            <div class="input-group mb-2">
+                <input class="form-control" type="text" name="workout_type" placeholder="Workout Type" required>
+            </div>
+
+            <button class="btn btn-danger" type="submit">
+                Add Member
+            </button>
+        </form>
+    </section>
+
+    <!-- ─── SINGLE MEMBER ───────────────────────────── -->
+    {% if member %}
+    <div class="card mb-3 p-3">
+        <h4>{{ member.name }}</h4>
+        <p><strong>ID:</strong> {{ member.id }}</p>
+        <p><strong>Age:</strong> {{ member.age }}</p>
+        <p><strong>Workout:</strong> {{ member.workout_type }}</p>
+        <p><strong>Duration:</strong> {{ member.duration_minutes }} min</p>
+        <p><strong>Calories:</strong> {{ member.calories_burned }}</p>
+
+        <a href="/home" class="btn btn-secondary mt-2">Back</a>
+    </div>
+
+    {% else %}
+
+    <!-- ─── MEMBER LIST ───────────────────────────── -->
+    <h3>All Members</h3>
+    <ul class="list-group">
+        {% for member in members %}
+        <li class="list-group-item d-flex justify-content-between">
+            <a href="/member/{{ member.id }}">{{ member.name }}</a>
+            <span>{{ member.workout_type }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+
+</main>
+
+{% endblock %}

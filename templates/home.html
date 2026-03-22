@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Gym Management System</title>
+
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link crossorigin="anonymous"
+          href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+          rel="stylesheet">
+
+    <style>
+        .app-navbar {
+            background-color: #c0392b;
+            padding: 1rem 0;
+        }
+
+        .app-navbar h1 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        body {
+            background-color: #f4f6f9;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 1rem 0;
+            background-color: #e9ecef;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="app-navbar">
+        <div class="container">
+            <h1 class="text-center">🏋️ Gym Management System</h1>
+        </div>
+    </nav>
+</header>
+
+<div class="container mt-4">
+
+    {% block member_container %}
+
+    <!-- ADD MEMBER FORM -->
+    <section class="container-fluid mb-4">
+        <form method="post" action="/add-member">
+            <input type="text" name="name" placeholder="Name" required class="form-control mb-2">
+            <input type="number" name="age" placeholder="Age" required class="form-control mb-2">
+            <input type="text" name="workout_type" placeholder="Workout Type" required class="form-control mb-2">
+            <button class="btn btn-danger" type="submit">Add Member</button>
+        </form>
+    </section>
+
+    <!-- MEMBER LIST -->
+    <section class="container-fluid">
+        <h2 class="text-center mb-3">All Members</h2>
+
+        <div class="card shadow-sm">
+            <ul class="list-group list-group-flush">
+                {% for member in members %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        <a href="/member/{{ member.id }}">{{ member.name }}</a>
+                    </span>
+                    <span class="text-muted small">{{ member.workout_type }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    {% endblock %}
+
+</div>
+
+<footer>
+    <p>SFWE477 — Final International University — Selin Türkdoğan | Student ID</p>
+</footer>
+
+</body>
+</html>
