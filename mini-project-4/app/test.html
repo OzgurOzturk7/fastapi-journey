@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>WebSocket Test</title></head>
+<body>
+  <h2>Poll: bad1af08</h2>
+  <div id="result"></div>
+  <button onclick="vote('Red')">Red</button>
+  <button onclick="vote('Blue')">Blue</button>
+  <button onclick="vote('Green')">Green</button>
+
+  <script>
+    const ws = new WebSocket("ws://localhost:8000/ws/polls/bad1af08");
+    ws.onmessage = function(event) {
+      document.getElementById("result").innerText = event.data;
+    };
+    function vote(option) {
+      ws.send(JSON.stringify({option: option}));
+    }
+  </script>
+</body>
+</html>
